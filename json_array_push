@@ -1,0 +1,41 @@
+/*
+    Function per aggiungere un oggetto json ad un array di oggetti json
+    Se il json sorgente è una stringa vuota crea il json array da zero che conterrà solo l'oggetto passato, altrimenti concatena l'oggetto all'array esistente
+    INPUT: 
+        - json_array_ TEXT: Json array originale; può essere una stringa vuota per un nuovo array
+        - json_object_ TEXT: oggetto da inserire nell'array; può essere un dato atomico, un oggetto o un altro array
+        - is_string_ INT(1): 1 se il valore dell'attributo deve essere tra virgolette (solo per le stringhe), 0 altrimenti (int, boolean, json object, json array)
+
+    OUTPUT: 
+        - json TEXT json_array
+ 
+    ESEMPIO: 
+      select json_array_push('', '{"alfa":"beta"}', 0)                   => [{"alfa":"beta"}]
+	  select json_array_push('[{"alfa":"beta"}]', '{"alfa":"gamma"}', 0) => [{"alfa":"beta"},{"alfa":"gamma"}]
+*/
+
+drop function if exists json_array_push;
+
+delimiter $$
+
+create function json_array_push(json_array_ TEXT, json_object_ TEXT, is_string_ int(1)) RETURNS TEXT
+    deterministic
+begin
+
+    declare value_ TEXT;
+
+    if is_string_ = 1 then
+        set value_ = concat('"', json_object_, '"');
+    else
+        set value_ = json_object_;
+    end if;
+
+    if length(json_array_) = 0 then
+        return concat('[', value_, ']');
+    else
+        return concat(SUBSTRING(json_array_, 1, length(json_array_) - 1), ',', value_, ']');
+    end if;
+
+end $$
+
+delimiter ;
