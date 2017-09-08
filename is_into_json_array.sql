@@ -11,9 +11,9 @@
 
 -- 
  
-DROP FUNCTION IF EXISTS `is_into_json_in_array`;
+DROP FUNCTION IF EXISTS `is_into_json_array`;
 DELIMITER $$
-CREATE FUNCTION `is_into_json_in_array` (search_ INT, json_int_array_ TEXT)  RETURNS INT BEGIN
+CREATE FUNCTION `is_into_json_array` (search_ INT, json_int_array_ TEXT)  RETURNS INT BEGIN
 
 
 declare com_list TEXT;  -- array of INT in json format
@@ -54,6 +54,6 @@ DELIMITER ;
 
 -- EXAMPLES : 
 
--- select is_into_json_in_array(18, '[25, 10, 15]'); -> -100
--- select is_into_json_in_array(25, '[25, 10, 15]'); -> 0
--- select is_into_json_in_array(15, '[25, 10, 15]'); -> 2
+-- select is_into_json_array(18, '[25, 10, 15]'); -> -100
+-- select is_into_json_array(25, '[25, 10, 15]'); -> 0
+-- select is_into_json_array(15, '[25, 10, 15]'); -> 2
