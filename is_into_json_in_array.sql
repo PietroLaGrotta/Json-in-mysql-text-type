@@ -51,3 +51,9 @@ declare x_ INT; -- position of INT element in array
 end$$
 
 DELIMITER ;
+
+-- EXAMPLES : 
+
+-- select is_into_json_in_array(18, '[25, 10, 15]'); -> -100
+-- select is_into_json_in_array(25, '[25, 10, 15]'); -> 0
+-- select is_into_json_in_array(15, '[25, 10, 15]'); -> 2
