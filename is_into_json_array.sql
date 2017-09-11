@@ -22,6 +22,9 @@ declare single_val_ INT; -- one element of array
 declare x_ INT; -- position of INT element in array
 	
 	SET com_list = json_int_array_;
+	SET com_list = REPLACE(com_list, '[', '');
+	SET com_list = REPLACE(com_list, ']', '');
+	SET com_list = REPLACE(com_list, ' ', '');
 	SET x_ = 0;
 	
 	WHILE LENGTH(com_list) > 0 DO  -- c'è almeno una occorrenza di ga
